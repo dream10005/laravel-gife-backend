@@ -29,15 +29,13 @@ class AuthController extends Controller
             return response(null,401);
         }
         try {
-            $connectDatabase = UserInvitations::test();
-            $a = $request->input('code');
-            if( $connectDatabase != "connected"){ 
-                return "error";
+            $response = UserInvitations::hasInvitationCode($request->input("code"));
+            if(empty($response)) {
+                return response(null,401); 
             }
         } catch(Exception $e) {
            return response(null,401);
-        }
-        
-        return $a;
+        } 
+        return response(null,200);
     }
 }

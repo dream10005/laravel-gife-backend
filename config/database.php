@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'gifebeta'),
+    //'default' => env('DB_CONNECTION', 'gifebeta'),
+    'default' => 'gife_stag',
 
     /*
     |--------------------------------------------------------------------------
@@ -91,6 +92,18 @@ return [
             'strict'    => true,
         ],
 
+        #gife_staging
+        'gife_stag' => [
+            'driver' => 'pgsql',
+            'host' => '128.199.240.141',
+            'port' => '5432',
+            'database' => 'gife_stag',
+            'username' => 'postgres',
+            'password' => 'o]qxvBiVNw*F90H',
+            'charset' => 'utf8',
+            'prefix' => '',
+            'sslmode' => 'prefer',
+        ],
     ],
 
     /*

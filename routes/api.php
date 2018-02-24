@@ -18,4 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/place', 'PlaceController@getPlaceDetailById');
-
+Route::get('/code', 'AuthController@verifyInvitationCode');
+Route::get('/test', 'AuthController@test');

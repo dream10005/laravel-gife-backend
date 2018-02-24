@@ -32,6 +32,7 @@ class PlaceController extends Controller
         return response()->json([
             'success'   =>  true,
             'result'    =>  $result,
+            'input'     =>  $request->input('place_id')
         ]);
     }
 

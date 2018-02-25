@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Validator;
 
 class PlaceController extends Controller
 {
+    public function getPlaceDetail(Request $request) {
+        
+    }
+
     public function getPlaceDetailById(Request $request) {
         if(!$request->has('place_id')) {
             return response()->json([

@@ -6,7 +6,6 @@ use App\Models\UserInvitations;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
-use DB;
 
 class AuthController extends Controller
 {   

@@ -2,42 +2,28 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Places;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
 
 class PlaceController extends Controller
 {
-    public function getPlaceDetail(Request $request) {
-        
+    public function postAddNewPlace(Request $request) {
+        $response = Places::addNewPlace();
+        return "sucess";
     }
-
-    public function getPlaceDetailById(Request $request) {
-        if(!$request->has('place_id')) {
-            return response()->json([
-                'success' => false,
-                'message' => 'NO_INPUT'
-            ],500);
+    
+    public function getPlaceDetail(Request $request) {
+        if(empty($request->input('place_id'))) {
+            return response(null,403);
         }
         try {
-            $result = DB::connection('gifebeta')
-                        ->table('Places')
-                        ->where('id', $request->input('place_id'))
-                        ->first();
-            if(!$result) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'GET_DETAIL_ERROR'
-                ],500);
-            }
-        } catch(Exception $e){
-			$this->handleExceptionWithMsg($request, $e, "Get place detail error");
-        }
-        return response()->json([
-            'success'   =>  true,
-            'result'    =>  $result,
-            'input'     =>  $request->input('place_id')
-        ]);
+            $response = Places::getPlaceDetail($request->input('place_id'));
+        } catch(Exception $e) {
+            return response(null,403);
+        } 
+        return $response;;
     }
 
 }

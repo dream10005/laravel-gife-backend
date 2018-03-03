@@ -9,18 +9,14 @@ use Validator;
 
 class AuthController extends Controller
 {   
-    // private $errorMessages = array(
-    //     'required' => 'Missing :attribute',
-    //     'integer' => 'Invalid :attribute',
-    //     'string' => 'Invalid :attribute',
-    //     'max' => 'Invalid length'
-    // );
-    // private $rules = array(
-    //     'code' => 'required|string',
-    // ); 
-    public function test() {
-        $response = UserInvitations::insertInvitationCode('test', '1');
-        return $response;
+    public function generateInvitationCode() {
+        $randomNumber = sprintf("%06d", mt_rand(1, 999999));
+        $response = UserInvitations::hasInvitationCode($randomNumber);
+        if(empty($response)) {
+            $response = UserInvitations::insertInvitationCode($randomNumber);
+            return response("success",200); 
+        }
+        return response("error",401);
     }
 
     public function verifyInvitationCode(Request $request) {
@@ -28,9 +24,13 @@ class AuthController extends Controller
             return response(null,401);
         }
         try {
-            $response = UserInvitations::hasInvitationCode($request->input("code"));
+            $response = UserInvitations::hasInvitationCode($request->input('code'));
             if(empty($response)) {
                 return response(null,401); 
+            }
+            $response = UserInvitations::activeInvitationCode($request->input('code'));
+            if(empty($response)) {
+                return response(null,401);
             }
         } catch(Exception $e) {
            return response(null,401);

@@ -18,7 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/place', 'PlaceController@getPlaceDetailById');
-Route::get('/code', 'AuthController@verifyInvitationCode');
-Route::get('/test', 'AuthController@test');
 Route::get('/place', 'PlaceController@getPlaceDetail');
 Route::post('/place', 'PlaceController@postAddNewPlace');
+
+Route::group(['prefix' => 'auth', 'namespace' => 'Api'], function() {
+    Route::get('/invitation', 'AuthController@verifyInvitationCode');
+    Route::get('/generate', 'AuthController@generateInvitationCode');
+});

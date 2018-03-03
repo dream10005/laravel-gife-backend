@@ -17,11 +17,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/place', 'PlaceController@getPlaceDetailById');
-Route::get('/place', 'PlaceController@getPlaceDetail');
-Route::post('/place', 'PlaceController@postAddNewPlace');
-
 Route::group(['prefix' => 'auth', 'namespace' => 'Api'], function() {
     Route::get('/invitation', 'AuthController@verifyInvitationCode');
-    Route::get('/generate', 'AuthController@generateInvitationCode');
+    Route::get('/new', 'AuthController@generateInvitationCode');
+});
+
+Route::group(['prefix' => 'place', 'namespace' => 'Api'], function() {
+    Route::get('/place', 'PlaceController@getPlaceDetailById');
+    Route::get('/place', 'PlaceController@getPlaceDetail');
+    Route::post('/place', 'PlaceController@postAddNewPlace');
 });

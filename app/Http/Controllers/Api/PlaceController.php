@@ -9,21 +9,29 @@ use Validator;
 
 class PlaceController extends Controller
 {
-    public function postAddNewPlace(Request $request) {
+
+    public function addNewPlace(Request $request) {
         $response = Places::addNewPlace();
         return "sucess";
     }
     
     public function getPlaceDetail(Request $request) {
-        if(empty($request->input('place_id'))) {
-            return response(null,403);
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|integer',
+        ]);
+        if ($validator->fails()) {
+            return response(null, 403);
         }
         try {
-            $response = Places::getPlaceDetail($request->input('place_id'));
+            $response = Places::getPlaceDetail($request->input('id'));
+            if(empty($response)) {
+                return response(null, 403);
+            }
         } catch(Exception $e) {
-            return response(null,403);
+            return response(null, 403);
         } 
-        return $response;;
+        //return $response;
+        return response()->json($response,200);
     }
-
+    
 }

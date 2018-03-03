@@ -12,10 +12,10 @@ class Places extends Model
 
     public static function addNewPlace() {
         $result = Places::insert([
-            'id' => 1,
             'subregion_id' => 1,
             'type_id' => 1,
             'title' => "1st test place",
+            'rating' => 0,
             'about' => "Sample Place",
             'latitude' => 101.11,
             'longitude' => 33.22,
@@ -24,15 +24,14 @@ class Places extends Model
             'open_close_time' => 1,
             'price_range_min' => 1,
             'price_range_max' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
+            'created_at' => Carbon::now('Asia/Bangkok'),
+            'updated_at' => Carbon::now('Asia/Bangkok')
         ]);
         return array($result);
     }
 
-    public static function getPlaceDetail($place_id) {
-        $result = Places::find($place_id)
-                        ->first();
+    public static function getPlaceDetail($id) {
+        $result = Places::where('id', $id)->first();
         return $result;
     }
 }

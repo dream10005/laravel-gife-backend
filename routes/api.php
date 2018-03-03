@@ -22,8 +22,7 @@ Route::group(['prefix' => 'auth'], function() {
     Route::get('/new', 'AuthController@generateInvitationCode');
 });
 
-Route::group(['prefix' => 'place', 'namespace' => 'Api'], function() {
-    Route::get('/place', 'PlaceController@getPlaceDetailById');
-    Route::get('/place', 'PlaceController@getPlaceDetail');
-    Route::post('/place', 'PlaceController@postAddNewPlace');
+Route::group(['prefix' => 'place'], function() {
+    Route::get('/', 'PlaceController@getPlaceDetail');
+    Route::post('/new', 'PlaceController@addNewPlace');
 });

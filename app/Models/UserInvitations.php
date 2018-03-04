@@ -20,9 +20,7 @@ class UserInvitations extends Model
     }
 
     public static function hasInvitationCode($code) {
-        $result = UserInvitations::select('code')
-                                ->where('code', $code)
-                                ->first();
+        $result = UserInvitations::select('code')->where('code', $code)->first();
         return $result;
     }
 

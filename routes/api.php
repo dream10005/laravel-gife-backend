@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'auth'], function() {
     Route::get('/invitation', 'AuthController@verifyInvitationCode');
     Route::get('/new', 'AuthController@generateInvitationCode');
+    Route::post('/facebook', 'AuthController@login');
 });
 
 Route::group(['prefix' => 'place'], function() {

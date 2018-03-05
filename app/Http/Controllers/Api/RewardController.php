@@ -23,14 +23,13 @@ class RewardController extends Controller
             return response(null, 403);
         }
         try {
-            $response = Rewards::getPlaceDetail($request->input('id'));
+            $response = Rewards::getRewardDetail($request->input('id'));
             if(empty($response)) {
                 return response(null, 403);
             }
         } catch(Exception $e) {
             return response(null, 403);
         } 
-        //return $response;
         return response()->json($response,200);
     }
     

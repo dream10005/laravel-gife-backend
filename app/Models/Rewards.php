@@ -23,4 +23,9 @@ class Rewards extends Model
         ]);
         return array($result);
     }
+
+    public static function getRewardDetail($id) {
+        $result = Rewards::where('id', $id)->first();
+        return $result;
+    }
 }

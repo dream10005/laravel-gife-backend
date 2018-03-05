@@ -27,3 +27,8 @@ Route::group(['prefix' => 'place'], function() {
     Route::get('/', 'PlaceController@getPlaceDetail');
     Route::post('/new', 'PlaceController@addNewPlace');
 });
+
+Route::group(['prefix' => 'reward'], function() {
+    Route::get('/', 'RewardController@getRewardDetail');
+    Route::post('/new', 'RewardController@addNewReward');
+});

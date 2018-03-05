@@ -28,7 +28,10 @@ class AuthController extends Controller
     }
 
     public function verifyInvitationCode(Request $request) {
-        if(empty($request->input("code"))) {
+        $validator = Validator::make($request->all(), [
+            'code' => 'required|integer|max:6',
+        ]);
+        if ($validator->fails()) {
             return response(null, 401);
         }
         try {

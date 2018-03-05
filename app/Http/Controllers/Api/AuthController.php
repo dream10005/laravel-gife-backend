@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers\Api;
 
+require_once 'src/JWT.php';
+
 use App\Models\Users;
 use App\Models\OauthProfiles;
 use App\Models\UserInvitations;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Firebase\JWT\JWT;
 use Validator;
 use DB;
 
 class AuthController extends Controller
 {   
+    private $secretKey = 'rqBU7UgAU7VHRwCsVVgHtSBCwepsZbHa';
+
     public function generateInvitationCode() {
         $randomNumber = sprintf("%06d", mt_rand(1, 999999));
         $response = UserInvitations::hasInvitationCode($randomNumber);
@@ -61,15 +66,16 @@ class AuthController extends Controller
                 if(empty($insertUsers)) {
                     return response(null, 403);
                 }
-                $token = $insertUsers;
+                $payload['id'] = $insertUsers;
             } else {
-                $token = $hasUser->id;
+                $payload['id'] = $hasUser->id;
             }
             DB::commit();
         } catch(Exception $e) {
             DB::rollback();
             return response("try catch error", 403);
         }
+        $token = JWT::encode($payload, $this->secretKey);
         return response()->json([
             'token' => $token
         ]); 

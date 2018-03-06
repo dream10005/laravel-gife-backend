@@ -29,7 +29,7 @@ class AuthController extends Controller
 
     public function verifyInvitationCode(Request $request) {
         $validator = Validator::make($request->all(), [
-            'code' => 'required|integer|max:6',
+            'code' => 'required|integer',
         ]);
         if ($validator->fails()) {
             return response(null, 401);

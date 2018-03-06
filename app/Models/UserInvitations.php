@@ -21,8 +21,8 @@ class UserInvitations extends Model
     }
 
     public static function hasInvitationCode($code) {
-        $result = DB::connection('gife_stag')->table('user_invitation')->select('code')->where('code', $code)->first();
-        //$result = UserInvitations::select('code')->where('code', $code)->where('is_active', 0)->first();
+        //$result = DB::connection('gife_stag')->table('user_invitation')->select('code')->where('code', $code)->first();
+        $result = UserInvitations::select('code')->where('code', $code)->where('is_active', 0)->first();
         return $result;
     }
 

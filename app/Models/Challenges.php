@@ -13,9 +13,9 @@ class Challenges extends Model
     public static function addNewChallenge() {
         $result = Challenges::insert([
             'challenge_duration_id' => 1,
-            'title' => "1st test place",
+            'title' => "3rd test place",
             'rating' => 0,
-            'location_label' => "Sample Place",
+            'location_label' => "3rd Place",
             'banner_image_url' => 'sss',
             'reward_type_id' => 1,
             'start_date' => Carbon::now('Asia/Bangkok'),
@@ -30,4 +30,13 @@ class Challenges extends Model
         return $result;
     }
 
+    public static function getSpotlightChallenges() {
+        $result = Challenges::where('is_spotlight', TRUE)->get();
+        return $result;
+    }
+
+    public static function getChallengeInSection($challengeSectionId) {
+        $result = Challenges::where('challenge_section_id', $challengeSectionId)->get();
+        return $result;
+    }
 }

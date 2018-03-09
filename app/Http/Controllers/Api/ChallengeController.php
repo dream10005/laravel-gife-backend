@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\ChallengeSections;
 use App\Models\Challenges;
+use App\Models\Places;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
@@ -43,6 +44,18 @@ class ChallengeController extends Controller
         }
         $response = ChallengeSections::addNewChallengeSection($request->input('title'));
         return $response;
+    }
+
+    public function getExplore(Request $request) {
+        $spotlightResp = Challenges::getSpotlightChallenges();
+        $sectionChallengeResp = ChallengeSections::getSectionChallenges();
+        //$nearbyResp = Places::getNearBy();
+        $result = array(
+            'spotlight' => $spotlightResp,
+            'sections' => $sectionChallengeResp,
+            'nearby' => 'not avaliable now'
+        );
+        return response()->json($result);
     }
     
 }

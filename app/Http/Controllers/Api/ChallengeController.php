@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\ChallengeSections;
 use App\Models\Challenges;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -31,6 +32,17 @@ class ChallengeController extends Controller
         } 
         //return $response;
         return response()->json($response,200);
+    }
+
+    public function addNewChallengeSection(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response(null, 403);
+        }
+        $response = ChallengeSections::addNewChallengeSection($request->input('title'));
+        return $response;
     }
     
 }

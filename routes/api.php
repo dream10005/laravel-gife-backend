@@ -36,4 +36,5 @@ Route::group(['prefix' => 'reward'], function() {
 Route::group(['prefix' => 'challenge'], function() {
     Route::get('/', 'ChallengeController@getChallengeDetail');
     Route::post('/new', 'ChallengeController@addNewChallenge');
+    Route::post('/new_section', 'ChallengeController@addNewChallengeSection');
 });

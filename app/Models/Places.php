@@ -10,20 +10,21 @@ class Places extends Model
     protected $primaryKey = "id";
     protected $table =  "places";
 
-    public static function addNewPlace() {
+    public static function addNewPlace($params) {
         $result = Places::insert([
             'subregion_id' => 1,
-            'type_id' => 1,
-            'title' => "1st test place",
+            'type_id' => $params['type_id'],
+            'title' => $params['title'],
             'rating' => 0,
-            'about' => "Sample Place",
-            'latitude' => 101.11,
-            'longitude' => 33.22,
-            'banner_image_url' => 'sss',
-            'contact_info' => 1,
-            'open_close_time' => 1,
-            'price_range_min' => 1,
-            'price_range_max' => 1,
+            'about' => $params['about'],
+            'latitude' => $params['latitude'],
+            'longitude' => $params['longitude'],
+            'banner_image_url' => $params['image_url'],
+            'address_description' => $params['address_desc'],
+            'contact_info' => $params['contact'],
+            'open_close_time' => $params['time'],
+            'price_range_min' => $params['price_min'],
+            'price_range_max' => $params['price_max'],
             'created_at' => Carbon::now('Asia/Bangkok'),
             'updated_at' => Carbon::now('Asia/Bangkok')
         ]);

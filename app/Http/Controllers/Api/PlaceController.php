@@ -6,13 +6,18 @@ use App\Models\Places;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
+use Session;
 
 class PlaceController extends Controller
 {
 
     public function addNewPlace(Request $request) {
-        $response = Places::addNewPlace();
-        return "sucess";
+        $response = Places::addNewPlace($request->all());
+        if(empty($response)) {
+            return redirect('/error');
+        } else {
+            return redirect('/success');
+        }
     }
     
     public function getPlaceDetail(Request $request) {
@@ -33,5 +38,5 @@ class PlaceController extends Controller
         //return $response;
         return response()->json($response,200);
     }
-    
+ 
 }

@@ -10,14 +10,16 @@ class Rewards extends Model
     protected $primaryKey = "id";
     protected $table =  "rewards";
 
-    public static function addNewReward() {
+    public static function addNewReward($params) {
         $result = Rewards::insert([
             'reward_type_id' => 1,
-            'title' => "1st test reward",
-            'description' => "Sample Reward",
+            'title' => $params['title'],
+            'description' => $params['reward_desc'],
+            'external_url' => $params['external_url'],
+            'banner_image_url' => $params['image_url'],
+            'required_gife_points' => $params['required_points'],
             'usage_limit' => 100,
             'start_date' => Carbon::now('Asia/Bangkok'),
-            'end_date' => Carbon::now('Asia/Bangkok'),
             'created_at' => Carbon::now('Asia/Bangkok'),
             'updated_at' => Carbon::now('Asia/Bangkok')
         ]);

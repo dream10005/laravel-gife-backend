@@ -20,6 +20,9 @@ Route::get('/form_place', function() {
 Route::get('/form_challenge', function() {
     return view('formAddChallenge');
 });
+Route::get('/form_reward', function() {
+    return view('formAddReward');
+});
 
 
 Route::get('/success', function() {
@@ -38,8 +41,8 @@ Route::get('/challenge_error', function() {
 });
 
 Route::get('/reward_success', function() {
-    return view('formAddReward')->with('success', 'Add data success');
+    return redirect('/form_reward')->with('success', 'Add data success');
 });
 Route::get('/reward_error', function() {
-    return view('formAddReward')->with('success', 'Add data failed');
+    return redirect('/form_reward')->with('success', 'Add data failed');
 });

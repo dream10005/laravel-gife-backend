@@ -11,8 +11,12 @@ class RewardController extends Controller
 {
 
     public function addNewReward(Request $request) {
-        $response = Rewards::addNewReward();
-        return "sucess";
+        $response = Rewards::addNewReward($request->all());
+        if(empty($response)) {
+            return redirect('/reward_error');
+        } else {
+            return redirect('/reward_success');
+        }
     }
     
     public function getRewardDetail(Request $request) {

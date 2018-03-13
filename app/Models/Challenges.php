@@ -10,14 +10,17 @@ class Challenges extends Model
     protected $primaryKey = "id";
     protected $table = "challenges";
 
-    public static function addNewChallenge() {
+    public static function addNewChallenge($params) {
         $result = Challenges::insert([
+            'challenge_section_id' => 1,
             'challenge_duration_id' => 1,
-            'title' => "3rd test place",
+            'title' => $params['title'],
             'rating' => 0,
-            'location_label' => "3rd Place",
-            'banner_image_url' => 'sss',
+            'location_label' => $params['location_label'],
+            'banner_image_url' => $params['image_url'],
+            'reward_gife_points' => $params['reward_points'],
             'reward_type_id' => 1,
+            'goal_description' => $params['goal_desc'],
             'start_date' => Carbon::now('Asia/Bangkok'),
             'created_at' => Carbon::now('Asia/Bangkok'),
             'updated_at' => Carbon::now('Asia/Bangkok')

@@ -12,8 +12,12 @@ use Validator;
 class ChallengeController extends Controller
 {
     public function addNewChallenge(Request $request) {
-        $response = Challenges::addNewChallenge();
-        return "sucess";
+        $response = Challenges::addNewChallenge($request->all());
+        if(empty($response)) {
+            return redirect('/challenge_error');
+        } else {
+            return redirect('/challenge_success');
+        }
     }
     
     public function getChallengeDetail(Request $request) {

@@ -15,12 +15,31 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/form_place', function() {
-    //session()->put('place', 'complete');
     return view('formAddPlace');
 });
+Route::get('/form_challenge', function() {
+    return view('formAddChallenge');
+});
+
+
 Route::get('/success', function() {
-    return redirect('/form_place')->with('success', 'Add data complete');
+    return redirect('/form_place')->with('success', 'Add data success');
 });
 Route::get('/error', function() {
-    return view('formAddPlace')->with('success', 'Add data failed');
+    return redirect('/form_place')->with('success', 'Add data failed');
+});
+
+
+Route::get('/challenge_success', function() {
+    return redirect('/form_challenge')->with('success', 'Add data success');
+});
+Route::get('/challenge_error', function() {
+    return redirect('/form_challenge')->with('success', 'Add data failed');
+});
+
+Route::get('/reward_success', function() {
+    return view('formAddReward')->with('success', 'Add data success');
+});
+Route::get('/reward_error', function() {
+    return view('formAddReward')->with('success', 'Add data failed');
 });

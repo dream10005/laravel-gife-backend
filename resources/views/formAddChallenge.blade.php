@@ -20,7 +20,7 @@
     <input type="text" name="image_url" value="www.google.com">
     <br><br>
     Location Label:<br>
-    <input type="text" name="location_label" value="Bangkok">
+    <input type="text" name="location_label" value="กรุงเทพ">
     <br><br>
     Reward Gife Points:<br>
     <input type="text" name="reward_points" value="100">

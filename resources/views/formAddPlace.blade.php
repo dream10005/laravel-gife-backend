@@ -51,8 +51,6 @@
     </form> 
     <br>
     <font color="green"> {{ session()->get('success') }} </font><br>
-    <font color="red"> {{ dd(session()->all()) }} </font>
-     {{ session()->forget('success') }}
-     {{ session()->forget('errorResp') }}
+    {{ session()->forget('success') }}
 </body>
 </html>

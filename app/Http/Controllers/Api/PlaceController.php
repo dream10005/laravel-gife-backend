@@ -29,10 +29,10 @@ class PlaceController extends Controller
     }
     
     public function addPlaceByCSV(Request $request) {
-        DB::beginTransaction();
-        $path = $request->file('csv')->getRealPath();
-        $rows = $this->csvToArray($path);
         try {
+            DB::beginTransaction();
+            $path = $request->file('csv')->getRealPath();
+            $rows = $this->csvToArray($path);
             foreach($rows as $row) {
                 $response = Places::addNewPlace($row);
                 if($response == false) {

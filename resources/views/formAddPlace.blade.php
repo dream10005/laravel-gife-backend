@@ -50,7 +50,11 @@
     <input type="submit" value="Submit">
     </form> 
     <br>
-    <font color="green"> {{ session()->get('success') }} </font><br>
+    @if (session()->get('success') == 'Insert data success')
+        <font color="green"> {{ session()->get('success') }} </font><br>
+    @else
+        <font color="red"> {{ session()->get('success') }} </font><br>
+    @endif
     {{ session()->forget('success') }}
 </body>
 </html>

@@ -32,7 +32,7 @@ Route::get('/place_error1', function() {
     return redirect('/form_place')->with('success', 'Insert data error');
 });
 Route::get('/place_error2', function() {
-    return redirect('/form_place')->with('success', 'Try-catch error');
+    return redirect('/form_place')->with('success', 'Input error');
 });
 
 

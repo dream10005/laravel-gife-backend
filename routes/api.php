@@ -25,7 +25,7 @@ Route::group(['prefix' => 'auth'], function() {
 
 Route::group(['prefix' => 'place'], function() {
     Route::get('/', 'PlaceController@getPlaceDetail');
-    Route::post('/new', 'PlaceController@addNewPlace');
+    Route::post('/new', 'PlaceController@addPlaceByCSV');
 });
 
 Route::group(['prefix' => 'reward'], function() {

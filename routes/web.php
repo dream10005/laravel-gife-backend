@@ -25,10 +25,10 @@ Route::get('/form_reward', function() {
 });
 
 
-Route::get('/success', function() {
+Route::get('/place_success', function() {
     return redirect('/form_place')->with('success', 'Add data success');
 });
-Route::get('/error', function() {
+Route::get('/place_error', function() {
     return redirect('/form_place')->with('success', 'Add data failed');
 });
 

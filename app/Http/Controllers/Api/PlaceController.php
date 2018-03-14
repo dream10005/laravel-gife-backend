@@ -32,20 +32,18 @@ class PlaceController extends Controller
         DB::beginTransaction();
         $path = $request->file('csv')->getRealPath();
         $rows = $this->csvToArray($path);
-        $row_count = 1;
         try {
             foreach($rows as $row) {
                 $response = Places::addNewPlace($row);
                 if($response == false) {
                     DB::rollback();
                     //return Redirect::route('place_error', array('errorResp' => 'error on row no.'.$row_count));
-                    return redirect('/place_error');
+                    return redirect('/place_error1');
                 }
-                $row_count = $row_count+1;
             }
         } catch(\Exception $e) {
             DB::rollback();
-            return redirect('/place_error');
+            return redirect('/place_error2');
         }
         DB::commit();
         return redirect('/place_success');

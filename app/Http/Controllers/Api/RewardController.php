@@ -36,5 +36,19 @@ class RewardController extends Controller
         } 
         return response()->json($response,200);
     }
+
+    public function getRewardList(Request $request) {
+       try {
+           $spotlightResp = Rewards::getSpotlightRewards();
+           $rewardResp = Rewards::getRewardLists();
+           $result = array(
+            'spotlight' => $spotlightResp ?? '',
+            'rewards' => $rewardResp ?? '',
+           );
+       } catch(Exception $e) {
+            return response(null, 403);
+       }
+       return response()->json($result, 200);
+    }
     
 }

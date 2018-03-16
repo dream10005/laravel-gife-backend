@@ -30,4 +30,14 @@ class Rewards extends Model
         $result = Rewards::where('id', $id)->first();
         return $result;
     }
+
+    public static function getSpotlightRewards() {
+        $result = Rewards::where('is_spotlight', TRUE)->get();
+        return $result;
+    }
+
+    public static function getRewardLists() {
+        $result = Rewards::orderBy('id', 'asc')->get();
+        return $result;
+    }
 }

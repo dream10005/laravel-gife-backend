@@ -31,6 +31,7 @@ Route::group(['prefix' => 'place'], function() {
 Route::group(['prefix' => 'reward'], function() {
     Route::get('/', 'RewardController@getRewardDetail');
     Route::post('/new', 'RewardController@addNewReward');
+    Route::get('/all', 'RewardController@getRewardList');
 });
 
 Route::group(['prefix' => 'challenge'], function() {

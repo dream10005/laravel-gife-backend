@@ -16,6 +16,8 @@ class ChallengeController extends Controller
         if(empty($response)) {
             return redirect('/challenge_error');
         } else {
+            session()->put('test', 'test');
+            session()->save();
             return redirect('/challenge_success');
         }
     }

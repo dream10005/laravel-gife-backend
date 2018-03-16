@@ -31,7 +31,7 @@
     <input type="submit" value="Submit">
     </form> 
     <br>
-    <font color="green"> {{ session()->get('success') }} </font>
+    <font color="green"> {{ session()->get('success') }}</font>
      {{ session()->forget('success') }}
 </body>
 </html>

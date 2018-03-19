@@ -2,15 +2,25 @@
 
 namespace App\Http\Controllers\Api;
 
+require_once 'src/JWT.php';
+require_once 'src/SignatureInvalidException.php';
+
+use App\Models\PlacesInActiveChallenge;
+use App\Models\UserActiveChallenges;
 use App\Models\ChallengeSections;
 use App\Models\Challenges;
 use App\Models\Places;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Firebase\JWT\JWT;
+use Firebase\JWT\SignatureInvalidException;
 use Validator;
+use DB;
 
 class ChallengeController extends Controller
 {
+    private $secretKey = 'rqBU7UgAU7VHRwCsVVgHtSBCwepsZbHa';
+
     public function addNewChallenge(Request $request) {
         $response = Challenges::addNewChallenge($request->all());
         if(empty($response)) {
@@ -68,4 +78,39 @@ class ChallengeController extends Controller
         return response()->json($result, 200);
     }
     
+    public function startChallenge(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'placeId' => 'required',
+            'challengeId' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response(null, 403);
+        }
+        if(empty($request->header('token'))) {
+            return response(null, 401);
+        }
+        try {
+            DB::beginTransaction();
+            $userId = JWT::decode($request->header('token'), $this->secretKey, array('HS256'));
+            if($userId == false) {
+                return response('Signature verification failed',403);
+            }
+            $response = UserActiveChallenges::activeChallenge($request->input('challengeId'), $userId->id);
+            if(empty($response)) {
+                DB::rollback();
+                return resposen(null, 403);
+            }
+            $response = PlacesInActiveChallenge::activePlace($request->input('placeId'), $userId->id);
+            if(empty($response)) {
+                DB::rollback();
+                return resposen(null, 403);
+            }
+        } catch(Exception $e) {
+            DB::rollback();
+            return response(null, 403);
+        }
+        DB::commit();
+        return response()->json(null, 200);
+    }
+
 }

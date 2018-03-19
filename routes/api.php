@@ -39,6 +39,7 @@ Route::group(['prefix' => 'challenge'], function() {
     Route::get('/explore', 'ChallengeController@getExplore');
     Route::post('/new', 'ChallengeController@addNewChallenge');
     Route::post('/new_section', 'ChallengeController@addNewChallengeSection');
+    Route::post('/go', 'ChallengeController@startChallenge');
 });
 
 Route::group(['prefeix' => 'gife'], function() {

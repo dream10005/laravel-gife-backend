@@ -43,4 +43,9 @@ class Places extends Model
         $result = Places::where('id', $id)->first();
         return $result;
     }
+
+    public static function getNearByPlaces() {
+        $result = Places::orderBy('id', 'asc')->get();
+        return $result;
+    }
 }

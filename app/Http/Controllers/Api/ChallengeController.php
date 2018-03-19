@@ -53,15 +53,19 @@ class ChallengeController extends Controller
     }
 
     public function getExplore(Request $request) {
-        $spotlightResp = Challenges::getSpotlightChallenges();
-        $sectionChallengeResp = ChallengeSections::getSectionChallenges();
-        //$nearbyResp = Places::getNearBy();
-        $result = array(
-            'spotlight' => $spotlightResp,
-            'sections' => $sectionChallengeResp,
-            'nearby' => 'not avaliable now'
-        );
-        return response()->json($result);
+        try {
+            $spotlightResp = Challenges::getSpotlightChallenges();
+            $sectionChallengeResp = ChallengeSections::getSectionChallenges();
+            $nearbyResp = Places::getNearByPlaces();
+            $result = array(
+                'spotlight' => $spotlightResp ?? '',
+                'sections' => $sectionChallengeResp ?? '',
+                'nearby' => $nearbyResp ?? ''
+            );
+        } catch(Exception $e) {
+            return response(null, 403);
+        }
+        return response()->json($result, 200);
     }
     
 }

@@ -49,3 +49,7 @@ Route::get('/reward_success', function() {
 Route::get('/reward_error', function() {
     return redirect('/form_reward')->with('success', 'Add data failed');
 });
+
+Route::get('/test', function() {
+    return $request->secure();
+});

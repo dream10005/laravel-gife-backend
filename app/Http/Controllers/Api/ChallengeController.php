@@ -80,20 +80,20 @@ class ChallengeController extends Controller
     
     public function startChallenge(Request $request) {
         $validator = Validator::make($request->all(), [
-            'placeId' => 'required',
-            'challengeId' => 'required'
+            'placeId' => 'required|integer',
+            'challengeId' => 'required|integer'
         ]);
         if ($validator->fails()) {
-            return response(null, 403);
+            return response('missing input/wrong input type', 403);
         }
         if(empty($request->header('token'))) {
-            return response(null, 401);
+            return response('missing token', 401);
         }
         try {
             DB::beginTransaction();
             $userId = JWT::decode($request->header('token'), $this->secretKey, array('HS256'));
-            if($userId == false) {
-                return response('Signature verification failed',403);
+            if($userId['success'] == false) {
+                return response('token error' ,401);
             }
             $response = UserActiveChallenges::activeChallenge($request->input('challengeId'), $userId->id);
             if(empty($response)) {
@@ -107,6 +107,7 @@ class ChallengeController extends Controller
             }
         } catch(Exception $e) {
             DB::rollback();
+            //$error = $e->getMessage;
             return response(null, 403);
         }
         DB::commit();

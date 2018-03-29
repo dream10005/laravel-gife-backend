@@ -21,6 +21,7 @@ Route::group(['prefix' => 'auth'], function() {
     Route::get('/invitation', 'AuthController@verifyInvitationCode');
     Route::get('/new', 'AuthController@generateInvitationCode');
     Route::post('/facebook', 'AuthController@login');
+    Route::get('/me', 'UserController@getUserDetail');
 });
 
 Route::group(['prefix' => 'place'], function() {
@@ -43,9 +44,6 @@ Route::group(['prefix' => 'challenge'], function() {
     Route::post('/go', 'ChallengeController@startChallenge');
 });
 
-Route::group(['prefeix' => 'gife'], function() {
-});
-
-Route::group(['prefeix' => 'user'], function() {
+Route::group(['prefix' => 'user'], function() {
     Route::get('/me', 'UserController@getUserDetail');
 });

@@ -26,11 +26,11 @@ class Users extends Model
             'completed_gifes_count',
             'completed_challenges_count',
             'completed_places_count',
-            'img_url',
+            'image_url',
             'email'
         )->where('id', $userId)
         ->first();
-        
+
         return $result;
     }
 

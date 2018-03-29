@@ -93,17 +93,17 @@ class ChallengeController extends Controller
             DB::beginTransaction();
             $userId = JWT::decode($request->header('token'), $this->secretKey, array('HS256'));
             if($userId['success'] == false) {
-                return response('token error' ,401);
+                return response('unauthorized' ,401);
             }
             $response = UserActiveChallenges::activeChallenge($request->input('challengeId'), $userId->id);
             if(empty($response)) {
                 DB::rollback();
-                return resposen(null, 403);
+                return response(null, 403);
             }
             $response = PlacesInActiveChallenge::activePlace($request->input('placeId'), $userId->id);
             if(empty($response)) {
                 DB::rollback();
-                return resposen(null, 403);
+                return response(null, 403);
             }
         } catch(Exception $e) {
             DB::rollback();

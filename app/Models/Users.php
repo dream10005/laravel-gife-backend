@@ -20,4 +20,18 @@ class Users extends Model
         return $result;
     }
 
+    public static function getUserDetail($userId) {
+        $result = Users::select(
+            'gife_points',
+            'completed_gifes_count',
+            'completed_challenges_count',
+            'completed_places_count',
+            'img_url',
+            'email'
+        )->where('id', $userId)
+        ->first();
+        
+        return $result;
+    }
+
 }

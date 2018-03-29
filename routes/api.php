@@ -44,5 +44,8 @@ Route::group(['prefix' => 'challenge'], function() {
 });
 
 Route::group(['prefeix' => 'gife'], function() {
+});
 
+Route::group(['prefeix' => 'user'], function() {
+    Route::get('/me', 'UserController@getUserDetail');
 });

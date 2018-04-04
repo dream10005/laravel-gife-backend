@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 require_once 'src/JWT.php';
 
 use App\Models\Users;
+use App\Models\UserRewards;
+use App\Models\UserActiveChallenges;
 use App\Models\Rewards;
 use App\Models\Challenges;
 use App\Http\Controllers\Controller;
@@ -32,10 +34,16 @@ class UserController extends Controller
                 return response('user not found', 401);
             }
             $result = $userDetail;
-            // $activeChallenge = Challenges::getActiveChallenges();
-            // $reviewPendingChallenge = Challenges::getReviewPendingChallenges();
-            // $historyChallenges = Challenges::getHistory();
-            // $historyRewards = Rewards::getHistory();
+            $activeChallenge = UserActiveChallenges::getActiveChallenges($userId);
+            $reviewPendingChallenge = UserActiveChallenges::getReviewPendingChallenges($userId);
+            $completeChallenges = UserActiveChallenges::getCompleteChallenges($userId);
+            $claimRewards = UserRewards::getClaimRewards($userId);
+            
+            $result['challenges_active'] = $activeChallenge ?? [];
+            $result['challenges_review_pending'] = $reviewPendingChallenge ?? [];
+            $result['challenges_history'] = $completeChallenges ?? [];
+            $result['rewards_history'] = $claimRewards ?? [];
+
         } catch(Exception $e) {
             return response($e->getMessage(), 401);
         }   

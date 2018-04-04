@@ -19,4 +19,28 @@ class UserActiveChallenges extends Model
         ]);
         return $result;
     }
+
+    public static function getCompleteChallenges($user_id) {
+        $result = UserActiveChallenges::join('challenges', 'user_active_challenges.challenge_id', '=', 'challenges.id')
+                                        ->where('user_active_challenges.user_id', $user_id)
+                                        ->where('user_active_challenges.active_challenge_status', 'done_has_gife')
+                                        ->get();
+        return $result;
+    }
+
+    public static function getReviewPendingChallenges($user_id) {
+        $result = UserActiveChallenges::join('challenges', 'user_active_challenges.challenge_id', '=', 'challenges.id')
+                                        ->where('user_active_challenges.user_id', $user_id)
+                                        ->where('user_active_challenges.active_challenge_status', 'done_no_gife')
+                                        ->get();
+        return $result;
+    }
+
+    public static function getActiveChallenges($user_id) {
+        $result = UserActiveChallenges::join('challenges', 'user_active_challenges.challenge_id', '=', 'challenges.id')
+                                        ->where('user_active_challenges.user_id', $user_id)
+                                        ->where('user_active_challenges.active_challenge_status', 'active')
+                                        ->get();
+        return $result;
+    }
 }

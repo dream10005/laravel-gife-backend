@@ -42,4 +42,14 @@ class Challenges extends Model
         $result = Challenges::where('challenge_section_id', $challengeSectionId)->get();
         return $result;
     }
+
+    public static function getHistory($userId) {
+        $result = Challenges::where('user_id', $userId)->get();
+        return $result;
+    }
+
+    public static function getReviewPendingChallenges($userId) {
+        $result = Challenges::where('user_id', $userId)->get();
+        return $result;
+    }
 }

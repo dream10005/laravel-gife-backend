@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+require_once 'src/JWT.php';
+
 use App\Models\Rewards;
+use App\Models\UserRewards;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Firebase\JWT\JWT;
@@ -66,11 +69,11 @@ class RewardController extends Controller
         }
         try {
             DB::beginTransaction();
-            $userId = JWT::decode($request->header('token'), $this->secretKey, array('HS256'));
-            if($userId == false) {
+            $decryptToken = JWT::decode($request->header('token'), $this->secretKey, array('HS256'));
+            if(empty($decryptToken)) {
                 return response(null, 401);
             }
-            $response = UserRewards::insert($userId, $request->input('rewardId'));
+            $response = UserRewards::claimReward($decryptToken->id, $request->input('rewardId'));
             if(empty($response)) {
                 DB::rollback();
                 return response(null, 403);

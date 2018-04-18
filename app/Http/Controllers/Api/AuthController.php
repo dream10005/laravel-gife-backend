@@ -65,13 +65,20 @@ class AuthController extends Controller
                 if(empty($insertOauthProfiles)) {
                     return response(null, 403);
                 } 
-                $insertUsers = Users::register($insertOauthProfiles);
+                $params = array(
+                    'oauthProfileId' => $insertOauthProfiles,
+                    'email' => $request->input('email') ?? '',
+                    'firstName' => $request->input('first_name') ?? '',
+                    'lastName' => $request->input('last_name') ?? '',
+                );
+                $insertUsers = Users::register($params);
                 if(empty($insertUsers)) {
                     return response(null, 403);
                 }
                 $payload['id'] = $insertUsers;
             } else {
                 $payload['id'] = $hasUser->id;
+                Users::updateLastLogin();
             }
             DB::commit();
         } catch(Exception $e) {

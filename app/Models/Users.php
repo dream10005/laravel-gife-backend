@@ -10,12 +10,15 @@ class Users extends Model
     protected $primaryKey = "id";
     protected $table =  "users";
 
-    public static function register($oauthProfileId) {
+    public static function register($params) {
         $result = Users::insertGetId([
-            'oauth_profile_id' => $oauthProfileId,
+            'oauth_profile_id' => $params['oauthProfileId'],
             'created_at' => Carbon::now('Asia/Bangkok'),
             'updated_at' => Carbon::now('Asia/Bangkok'),
             'last_login_at' => Carbon::now('Asia/Bangkok'),
+            'email' => $params['email'],
+            'first_name' => $params['firstName'],
+            'last_name' => $params['lastName'] 
         ]);
         return $result;
     }
@@ -27,11 +30,19 @@ class Users extends Model
             'completed_challenges_count',
             'completed_places_count',
             'image_url',
-            'email'
+            'email',
+            'first_name',
+            'last_name'
         )->where('id', $userId)
         ->first();
 
         return $result;
+    }
+
+    public static function updateLastLogin() {
+        $result = User::update([
+            'last_login_at' => Carbon::now('Asia/Bangkok'),
+        ]);
     }
 
 }

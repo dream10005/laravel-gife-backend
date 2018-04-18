@@ -18,7 +18,8 @@ class Users extends Model
             'last_login_at' => Carbon::now('Asia/Bangkok'),
             'email' => $params['email'],
             'first_name' => $params['firstName'],
-            'last_name' => $params['lastName'] 
+            'last_name' => $params['lastName'],
+            'image_url' => $params['imageUrl']
         ]);
         return $result;
     }
@@ -39,10 +40,10 @@ class Users extends Model
         return $result;
     }
 
-    public static function updateLastLogin() {
+    public static function updateLastLogin($oauthProfileId) {
         $result = User::update([
             'last_login_at' => Carbon::now('Asia/Bangkok'),
-        ]);
+        ])->where('oauth_profile_id', $oauthProfileId);
     }
 
 }

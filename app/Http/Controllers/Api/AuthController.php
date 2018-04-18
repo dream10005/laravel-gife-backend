@@ -70,6 +70,7 @@ class AuthController extends Controller
                     'email' => $request->input('email') ?? '',
                     'firstName' => $request->input('first_name') ?? '',
                     'lastName' => $request->input('last_name') ?? '',
+                    'imageUrl' => $request->input('image_url') ?? '',
                 );
                 $insertUsers = Users::register($params);
                 if(empty($insertUsers)) {
@@ -78,7 +79,7 @@ class AuthController extends Controller
                 $payload['id'] = $insertUsers;
             } else {
                 $payload['id'] = $hasUser->id;
-                Users::updateLastLogin();
+                //Users::updateLastLogin();
             }
             DB::commit();
         } catch(Exception $e) {

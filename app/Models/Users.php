@@ -34,7 +34,7 @@ class Users extends Model
             'email',
             'first_name',
             'last_name'
-        )->where('id', $userId)
+        )->where('oauth_profile_id', $userId)
         ->first();
 
         return $result;

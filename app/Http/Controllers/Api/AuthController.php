@@ -32,19 +32,19 @@ class AuthController extends Controller
             'code' => 'required|integer',
         ]);
         if ($validator->fails()) {
-            return response(null, 401);
+            return response(1, 401);
         }
         try {
             $response = UserInvitations::hasInvitationCode($request->input('code'));
             if(empty($response)) {
-                return response(null, 401); 
+                return response(2, 401); 
             }
             $response = UserInvitations::activeInvitationCode($request->input('code'));
             if(empty($response)) {
-                return response(null, 401);
+                return response(3, 401);
             }
         } catch(Exception $e) {
-           return response(null, 401);
+           return response(4, 401);
         } 
         return response(null, 200);
     }

@@ -92,7 +92,7 @@ class ChallengeController extends Controller
         try {
             DB::beginTransaction();
             $userId = JWT::decode($request->header('token'), $this->secretKey, array('HS256'));
-            if($userId['success'] == false) {
+            if(empty($userId)) {
                 return response('unauthorized' ,401);
             }
             $response = UserActiveChallenges::activeChallenge($request->input('challengeId'), $userId->id);
@@ -111,7 +111,7 @@ class ChallengeController extends Controller
             return response(null, 403);
         }
         DB::commit();
-        return response()->json(null, 200);
+        return response()->json('success', 200);
     }
 
 }

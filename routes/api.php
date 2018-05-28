@@ -47,3 +47,8 @@ Route::group(['prefix' => 'challenge'], function() {
 Route::group(['prefix' => 'user'], function() {
     Route::get('/me', 'UserController@getUserDetail');
 });
+
+Route::group(['prefix' => 'migration'], function() {
+    Route::post('/places', 'MigrationController@uploadPlaces');
+    Route::post('/rewards', 'MigrationController@uploadRewards');
+});

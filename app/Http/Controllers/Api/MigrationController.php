@@ -37,8 +37,10 @@ class MigrationController extends Controller {
 
     public function uploadPlaces(Request $request) {
         DB::beginTransaction();
+        date_default_timezone_set("Asia/Bangkok");
     	$path = $request->file('csv')->getRealPath();
         $rows = $this->csvToArray($path);
+        $date = date('Y-m-d H:i:s');
         try {
             foreach($rows as $row) {
                 $data = array(
@@ -53,7 +55,9 @@ class MigrationController extends Controller {
                     'price_range_min' => $row['price_range_min'],
                     'price_range_max' => $row['price_range_max'],
                     'review_url' => $row['review_url'],
-                    'address_description' => $row['address_description']
+                    'address_description' => $row['address_description'],
+                    'created_at' => $date,
+                    'updated_at' => $date  
                 );
                 $insert = DB::connection('gife_stag')->table('places')->insert($data);
             }
